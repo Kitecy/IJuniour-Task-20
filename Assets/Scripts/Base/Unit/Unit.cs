@@ -13,12 +13,15 @@ public class Unit : MonoBehaviour
     public event Action<Unit> ReachedResource;
     public event Action<Unit> ReachedBase;
 
-    public bool IsBusy => _collector.IsBusy;
-
     private void Awake()
     {
         _collector = GetComponent<Collector>();
         _movement = GetComponent<UnitMovement>();
+    }
+
+    public void SetDistanceChecker(DistanceChecker distanceChecker)
+    {
+        _collector.SetDistanceChecker(distanceChecker);
     }
 
     public void GoToPoint(Transform point, Action<Unit> onReachedCallback = null)
@@ -26,7 +29,7 @@ public class Unit : MonoBehaviour
         if (_movement.IsBusy)
             return;
 
-        MoveTo(point);
+        _movement.SetTarget(point);
 
         if (onReachedCallback == null)
             return;
@@ -42,7 +45,7 @@ public class Unit : MonoBehaviour
 
         _targetResource = resource;
 
-        MoveTo(resource.ArrivalPoint);
+        _movement.SetTarget(resource.ArrivalPoint);
         _movement.Reached += OnReachedResource;
     }
 
@@ -51,7 +54,7 @@ public class Unit : MonoBehaviour
         if (_movement.IsBusy)
             return;
 
-        MoveTo(@base);
+        _movement.SetTarget(@base);
         _movement.Reached += OnReachedBase;
     }
 
@@ -66,12 +69,6 @@ public class Unit : MonoBehaviour
         _movement.Reached -= OnReachedCallback;
         _onReachedCallback?.Invoke(this);
         _onReachedCallback = null;
-    }
-
-    private void MoveTo(Transform target)
-    {
-        _movement.SetTarget(target);
-        _movement.Move();
     }
 
     private void OnReachedResource()

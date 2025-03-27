@@ -9,6 +9,7 @@ public class ResourceScanner : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private LayerMask _detectableLayers;
 
+    private const bool _isScaning = true;
     private WaitForSeconds _sleepTime;
 
     public event Action<List<Resource>> Scanned;
@@ -21,6 +22,7 @@ public class ResourceScanner : MonoBehaviour
     private void Start()
     {
         Scan();
+        StartCoroutine(WaitForScan());
     }
 
     private void OnDrawGizmosSelected()
@@ -37,14 +39,15 @@ public class ResourceScanner : MonoBehaviour
             if (collider.TryGetComponent(out Resource resource))
                 resources.Add(resource);
 
-        StartCoroutine(WaitForScan());
-
         Scanned?.Invoke(resources);
     }
 
     private IEnumerator WaitForScan()
     {
-        yield return _sleepTime;
-        Scan();
+        while (_isScaning)
+        {
+            yield return _sleepTime;
+            Scan();
+        }
     }
 }

@@ -15,6 +15,10 @@ public class ResourcePlace : MonoBehaviour
     private void Awake()
     {
         _sleepTime = new(_spawnDelay);
+    }
+
+    private void Start()
+    {
         Spawn();
     }
 

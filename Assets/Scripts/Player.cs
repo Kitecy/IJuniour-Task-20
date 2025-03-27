@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (_raycaster.Raycast(ray, out Base @base, out Vector3 point) == false)
+        if (_raycaster.Raycast(ray, out Base @base) == false)
             return;
 
         _flagReplacer.SelectBase(@base);

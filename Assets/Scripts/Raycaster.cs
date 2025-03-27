@@ -2,18 +2,15 @@ using UnityEngine;
 
 public class Raycaster : MonoBehaviour
 {
-    public bool Raycast<T>(Ray ray, out T obj, out Vector3 point) where T : MonoBehaviour
+    public bool Raycast<T>(Ray ray, out T obj) where T : MonoBehaviour
     {
         obj = null;
-        point = Vector3.zero;
 
         if (Physics.Raycast(ray, out RaycastHit hit) == false)
             return false;
 
         if (hit.collider.TryGetComponent(out T component))
             obj = component;
-
-        point = hit.point;
 
         return true;
     }

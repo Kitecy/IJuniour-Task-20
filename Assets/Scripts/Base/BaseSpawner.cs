@@ -12,7 +12,6 @@ public class BaseSpawner : Spawner<Base>
 
         @base.SetResourcesQueue(_resourcesQueue);
         @base.SetBaseSpawner(this);
-        @base.SetResourceSpawner(_resourceSpawner);
         @base.SetUnitsSpawner(_unitsSpawner);
     }
 }

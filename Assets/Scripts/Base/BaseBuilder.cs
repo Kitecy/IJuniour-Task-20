@@ -21,11 +21,10 @@ public class BaseBuilder : Generator<Base>
     {
         @base = null;
 
-        if (CanBuy(wallet) == false)
+        if (wallet.TryUse(Price) == false)
             return false;
 
         @base = Create();
-        wallet.TryUse(Price);
         return true;
     }
 
@@ -33,6 +32,7 @@ public class BaseBuilder : Generator<Base>
     {
         Base @base = ObjectsSpawner.GetObject();
         @base.transform.position = Flag.position + _offset;
+        @base.gameObject.SetActive(false);
         Flag.gameObject.SetActive(false);
         return @base;
     }

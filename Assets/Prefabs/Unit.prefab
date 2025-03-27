@@ -111,8 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f73b23d7107075488f92fd9731fa26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: {x: 1, y: 0, z: 1}
-  _speed: 4
+  _speed: 20
 --- !u!114 &8676570806787462143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c07e30fa8846d4bbd36dac4854d97e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 0}
 --- !u!1 &3208754085516331496
 GameObject:
   m_ObjectHideFlags: 0

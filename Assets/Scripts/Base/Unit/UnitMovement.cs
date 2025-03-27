@@ -17,10 +17,7 @@ public class UnitMovement : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
-    }
 
-    public void Move()
-    {
         if (_coroutine == null && _target != null)
             _coroutine = StartCoroutine(Walking());
     }

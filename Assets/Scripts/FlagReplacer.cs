@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FlagReplacer : MonoBehaviour
@@ -9,7 +10,7 @@ public class FlagReplacer : MonoBehaviour
     public void SelectBase(Base @base)
     {
         if (IsBusy)
-            return;
+            throw new InvalidOperationException();
 
         _selected = @base;
     }

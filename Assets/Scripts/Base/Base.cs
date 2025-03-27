@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
+    private const int MinUnitsCorCreatingBase = 1;
+
     [SerializeField] private ResourcesWallet _wallet;
-    [SerializeField] private UnitGenerator _unitGenerator;
+    [SerializeField] private UnitGenerator _unitsGenerator;
     [SerializeField] private BaseBuilder _builder;
     [SerializeField] private List<Unit> _units;
-    [SerializeField] private ResourceSpawner _spawner;
     [SerializeField] private ResourceScanner _scanner;
     [SerializeField] private ResourcesQueue _resourceQueue;
 
     private List<Unit> _freeUnits;
     private OccupationType _generatingType;
+    private Base _createdBase;
 
     private enum OccupationType
     {
@@ -25,12 +27,13 @@ public class Base : MonoBehaviour
 
     private void Awake()
     {
-        _scanner.Scanned += OnResourcesScanned;
         _freeUnits = new(_units);
     }
 
     private void OnEnable()
     {
+        _scanner.Scanned += OnResourcesScanned;
+
         foreach (Unit unit in _units)
         {
             unit.ReachedResource += OnUnitReachedResource;
@@ -40,6 +43,8 @@ public class Base : MonoBehaviour
 
     private void OnDisable()
     {
+        _scanner.Scanned -= OnResourcesScanned;
+
         foreach (Unit unit in _units)
         {
             unit.ReachedResource -= OnUnitReachedResource;
@@ -52,14 +57,9 @@ public class Base : MonoBehaviour
         _resourceQueue = resourcesQueue;
     }
 
-    public void SetResourceSpawner(ResourceSpawner resourceSpawner)
-    {
-        _spawner = resourceSpawner;
-    }
-
     public void SetUnitsSpawner(UnitsSpawner unitsSpawner)
     {
-        _unitGenerator.SetUnitsSpawner(unitsSpawner);
+        _unitsGenerator.SetUnitsSpawner(unitsSpawner);
     }
 
     public void SetBaseSpawner(BaseSpawner baseSpawner)
@@ -109,6 +109,14 @@ public class Base : MonoBehaviour
                 SendForResource(resources[i]);
     }
 
+    private void SendForResource(Resource resource)
+    {
+        Unit unit = _freeUnits.First();
+        _freeUnits.Remove(unit);
+
+        unit.GoToResources(resource);
+    }
+
     private void OnUnitReachedResource(Unit unit)
     {
         unit.GoToBase(ArrivalPoint);
@@ -117,8 +125,8 @@ public class Base : MonoBehaviour
     private void OnUnitReachedBase(Unit unit)
     {
         Resource collectedResource = unit.GiveResource();
-        _spawner.ReleaseObject(collectedResource);
         _resourceQueue.RemoveResource(collectedResource);
+        collectedResource.Dispose();
 
         _wallet.Add();
 
@@ -127,7 +135,8 @@ public class Base : MonoBehaviour
         switch (_generatingType)
         {
             case OccupationType.Unit:
-                _unitGenerator.TryCreate(_wallet, this);
+                if (_unitsGenerator.TryCreate(_wallet, this) == false)
+                    return;
                 break;
 
             case OccupationType.Base:
@@ -138,19 +147,11 @@ public class Base : MonoBehaviour
 
     private void StartCreatingBase()
     {
-        if (_builder.CanBuy(_wallet) == false)
+        if (_builder.TryCreate(_wallet, out _createdBase) == false || _units.Count <= MinUnitsCorCreatingBase)
             return;
 
-        if (_freeUnits.Count > 0 && _generatingType == OccupationType.Base)
+        if (_freeUnits.Count > 0)
             SendToCreateBase();
-    }
-
-    private void SendForResource(Resource resource)
-    {
-        Unit unit = _freeUnits.First();
-        _freeUnits.Remove(unit);
-
-        unit.GoToResources(resource);
     }
 
     private void SendToCreateBase()
@@ -164,9 +165,9 @@ public class Base : MonoBehaviour
 
     private void OnUnitCreatedBase(Unit unit)
     {
-        _builder.TryCreate(_wallet, out Base @base);
-
         RemoveUnit(unit);
-        @base.AddUnit(unit);
+        _createdBase.AddUnit(unit);
+        _createdBase.gameObject.SetActive(true);
+        _createdBase = null;
     }
 }

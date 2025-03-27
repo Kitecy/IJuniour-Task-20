@@ -7,12 +7,10 @@ public class UnitGenerator : Generator<Unit>
 
     public bool TryCreate(ResourcesWallet wallet, Base @base)
     {
-        if (CanBuy(wallet) == false)
+        if (wallet.TryUse(Price) == false)
             return false;
 
         Create(@base);
-
-        wallet.TryUse(Price);
         return true;
     }
 

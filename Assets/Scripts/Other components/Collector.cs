@@ -10,6 +10,11 @@ public class Collector : MonoBehaviour
 
     public bool IsBusy => _resource != null;
 
+    public void SetDistanceChecker(DistanceChecker distanceChecker)
+    {
+        _distanceChecker = distanceChecker;
+    }
+
     public void Take(Resource resource)
     {
         bool distancePassed = _distanceChecker.IsDistanceGreater(transform.position, resource.transform.position, _maxTakeDistance);

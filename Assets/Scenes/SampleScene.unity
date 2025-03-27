@@ -881,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063434339287123007, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: _speed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8104748076502239869, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1034,6 +1034,7 @@ MonoBehaviour:
   _prefab: {fileID: 8120373548940864045, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
   _defaultCapacity: 0
   _maxSize: 100
+  _distanceChecker: {fileID: 676875343}
 --- !u!4 &1795671742
 Transform:
   m_ObjectHideFlags: 0
@@ -1196,7 +1197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063434339287123007, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: _speed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8104748076502239869, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1457,7 +1458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063434339287123007, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: _speed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8104748076502239869, guid: 0fbc99fffd821ed41b1de23df01d3b1b, type: 3}
       propertyPath: m_LocalPosition.x

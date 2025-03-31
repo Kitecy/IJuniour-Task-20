@@ -437,10 +437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wallet: {fileID: 4582109074793855043}
-  _unitGenerator: {fileID: 7367354629888066767}
+  _unitsGenerator: {fileID: 7367354629888066767}
   _builder: {fileID: 1121758517807378014}
   _units: []
-  _spawner: {fileID: 0}
   _scanner: {fileID: 2399992599444101564}
   _resourceQueue: {fileID: 0}
   <ArrivalPoint>k__BackingField: {fileID: 6724034451626323520}
@@ -456,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231f336072d73044b87c3f1901efdbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scanDelay: 5
+  _scanDelay: 2
   _radius: 50
   _detectableLayers:
     serializedVersion: 2

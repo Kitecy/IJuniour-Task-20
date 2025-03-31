@@ -32,7 +32,7 @@ public class ResourcePlace : MonoBehaviour
         Resource.Claimed += OnResourceClaimed;
     }
 
-    private IEnumerator Spawning()
+    private IEnumerator WaitForSpawn()
     {
         yield return _sleepTime;
         Spawn();
@@ -41,7 +41,7 @@ public class ResourcePlace : MonoBehaviour
     private void OnResourceClaimed()
     {
         Resource.Claimed -= OnResourceClaimed;
-        StartCoroutine(Spawning());
+        StartCoroutine(WaitForSpawn());
         Resource = null;
     }
 }

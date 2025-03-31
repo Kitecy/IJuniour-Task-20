@@ -22,7 +22,7 @@ public class ResourceScanner : MonoBehaviour
     private void Start()
     {
         Scan();
-        StartCoroutine(WaitForScan());
+        StartCoroutine(Scanning());
     }
 
     private void OnDrawGizmosSelected()
@@ -42,7 +42,7 @@ public class ResourceScanner : MonoBehaviour
         Scanned?.Invoke(resources);
     }
 
-    private IEnumerator WaitForScan()
+    private IEnumerator Scanning()
     {
         while (_isScaning)
         {

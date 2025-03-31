@@ -521,6 +521,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f33fec5653dd214780d860d2324e5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &528139453 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7367354629888066767, guid: 56b6ca16d0be61740bf80c99d2ecfca0, type: 3}
+  m_PrefabInstance: {fileID: 2378491961513110960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44326f92a6813bf468ef1f94bcf65538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676875342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1362,10 @@ PrefabInstance:
       propertyPath: _resourceQueue
       value: 
       objectReference: {fileID: 1585246484}
+    - target: {fileID: 546244119567949366, guid: 56b6ca16d0be61740bf80c99d2ecfca0, type: 3}
+      propertyPath: _unitsGenerator
+      value: 
+      objectReference: {fileID: 528139453}
     - target: {fileID: 546244119567949366, guid: 56b6ca16d0be61740bf80c99d2ecfca0, type: 3}
       propertyPath: _units.Array.size
       value: 3

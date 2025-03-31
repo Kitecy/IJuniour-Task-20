@@ -28,17 +28,17 @@ public class Base : MonoBehaviour
     private void Awake()
     {
         _freeUnits = new(_units);
-    }
-
-    private void OnEnable()
-    {
-        _scanner.Scanned += OnResourcesScanned;
 
         foreach (Unit unit in _units)
         {
             unit.ReachedResource += OnUnitReachedResource;
             unit.ReachedBase += OnUnitReachedBase;
         }
+    }
+
+    private void OnEnable()
+    {
+        _scanner.Scanned += OnResourcesScanned;
     }
 
     private void OnDisable()
@@ -147,7 +147,15 @@ public class Base : MonoBehaviour
 
     private void StartCreatingBase()
     {
-        if (_builder.TryCreate(_wallet, out _createdBase) == false || _units.Count <= MinUnitsCorCreatingBase)
+        if (_units.Count <= MinUnitsCorCreatingBase)
+        {
+            if (_unitsGenerator.TryCreate(_wallet, this) == false)
+                return;
+
+            return;
+        }
+
+        if (_builder.TryCreate(_wallet, out _createdBase) == false)
             return;
 
         if (_freeUnits.Count > 0)
